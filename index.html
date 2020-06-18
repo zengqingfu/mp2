@@ -1,0 +1,878 @@
+<!doctype html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<head>
+    <meta charset="UTF-8">
+    <title>魔屏A</title>
+    <meta name="description" content="魔屏">
+
+    <head>
+
+    </head>
+</head>
+<script src="jquery.min.js"></script>
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0px;
+        font-size: 0px;
+        background-color: black;
+    }
+
+    #box {
+        height: 1440px;
+        width: 7680px;
+        overflow: hidden !important;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    #box>div {
+        height: 137px;
+        width: 206px;
+        box-sizing: border-box;
+        display: inline-block;
+        position: absolute;
+        z-index: 1;
+        transition: 0.5s;
+    }
+    * {
+        touch-action:pan-y pan-x;
+    }    
+    #box>div>p {
+        height: 100%;
+        width: 100%;
+    }
+
+    .transition0 {
+        transition: 0s !important;
+    }
+    .transition1,.transition1>div,.transition1>div>div {
+        transition: 1s;
+        pointer-events: none;
+    }
+
+    .transition{
+        transition: 0.2s  !important;
+        pointer-events: none;
+    }
+    .boxshow {
+        height: 1440px;
+        width: 1064px;
+        position: absolute;
+        top: 0px;
+        z-index: 9;
+        background-color: rgba(0, 212, 255, 0.7);
+        transition: 1s;
+        opacity: 0;
+    }
+    .boxhide{
+        opacity: 0;
+        transition: 1s;
+        pointer-events: none;
+    }
+
+    .boxulimg {
+        background-color: #000;
+        position: absolute;
+        width: 636px;
+        height: 1440px;
+        top: 0px;
+        z-index: 99;
+        overflow: hidden;
+        box-shadow: 0px 0px 20px #000;
+    }
+    .boxulimg>.boxlist>div{background-size: auto 100% !important;}    
+    .pointer{pointer-events: none;}
+    .boxulimgshow{width: 206px; height: 137px;opacity: 0;pointer-events: none;}
+    .boxulimgshow>.boxlist{width: 206px; height: 137px;}
+    .boxulimgshow>.boxlist>div{width: 206px; height: 137px;top: 0px !important;transition: 1s;}
+
+    .boximgHide{
+        transition: 1s;
+        width: 206px;
+        height: 137px;
+        opacity: 1;
+        pointer-events: none;
+    }
+    .boximgHide>.boxlist{
+        width: 206px;
+        transition: 1s;
+        height: 137px!important;
+    }
+    .boximgHide>.boxlist>div{
+        width: 206px;
+        height: 137px!important;
+        transition: 1s;
+        top: 0px !important;
+        background-size: auto 100%  !important;
+    }
+    .boxulimg>div {
+        width: 636px;
+        position: absolute;
+        left: 0px;
+        user-select:none;
+    }
+
+    .boxulimg>div>div {
+        margin: 0px 0px 8px 0px;
+        width: 636px;
+        height: 427px;
+    }
+    #zhezhaotop{    position: absolute;top: 0px;left: 0px;width: 100%;height:284px;background-color: rgba(0, 212, 255, 0.3); pointer-events: none;}
+    #zhezhaobuttom{position: absolute; bottom:  0px;left: 0px;width: 100%;height: 716px;background-color: rgba(0, 212, 255, 0.3);pointer-events: none;}
+    .btn01,.btn02,.btn03{user-select:none; position: absolute; left: 2px; top: 582px; background:rgba(255, 0, 0, 0.8);text-align: center; width: 420px; height: 137px; z-index: 9;color: #fff;font-size: 36px; box-sizing: border-box; padding-top: 40px;}
+    .btnbox span{font-size: 12px;}
+    .showbigimgbox{ height: 1440px; width: 0px; position: absolute; top:2px;transition: 0.3s; left: 2px; z-index: 999; background-color: #000; box-shadow: 0px 0px 20px #000; overflow: hidden; opacity: 0;}
+    .showbigimgbox ul{ list-style: none;padding: 0px; width:420px; height:auto; overflow: hidden; position: absolute; top: -1446px}
+    .showbigimgbox ul li{transition: 0.5s ; display: block; height: 173px; margin-bottom: 8px; background-color: cornflowerblue;text-align: center;color: #fff;font-size: 36px;box-sizing: border-box; padding-top: 40px;pointer-events: none;user-select:none}
+    .showbigimgbox ul li span{font-size: 12px;}
+    .showbigimgbox .showbingcon { position: absolute; width: 2128px; height: 100%; right: 0px; top: 0px; overflow: hidden; }
+    .showbingcon .showbiglist{ width: 100%; height: auto; position: absolute; left: 0px; top: 0px; }
+    .showbigimgbox .showbingcon .showbiglist>div{ width: 2128px; height: 1436px; margin-bottom: 2px;display: inline-block;}
+    .backf00{ background-color: #f00 !important;margin-bottom: 4px !important;}
+	.boxexit{ position: absolute;bottom: 0px; right: 0px; z-index: 99; text-align: center; width: 120px; height: 120px; background: #0000004a;}
+	.boxexit svg{transform:rotate(90deg); height: 100px; width: auto;}
+	#videobox{width: 1280px; height: 1440px; position: absolute;right: 0px; top: 0px; box-sizing: border-box; padding: 2px; background-color: rgba(0,0,0,0.45); z-index: 99}
+</style>
+
+<body>
+    <div class="btn01 btnbox">核心产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="btn02 btnbox" style="left: 2562px;">基础产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="btn03 btnbox" style="left: 5122px;">应用产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="showbigimgbox box01" style="left: 315px">
+        <ul index = "0">
+            <li index = "0" name='北斗' >北斗<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='传感器' >传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='互联网' >互联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='人工智能'>人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='软件' >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='物联网' >物联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='芯片' >芯片<br/><span>end</span></li>
+            <li index = "7" name='信息安全' >信息安全<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='北斗' >北斗<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='传感器' >传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='互联网' >互联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='人工智能' class="backf00">人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='软件' >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='物联网' >物联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='芯片' >芯片<br/><span>end</span></li>
+            <li index = "7" name='信息安全' >信息安全<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='北斗' >北斗<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='传感器' >传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='互联网' >互联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='人工智能'>人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='软件' >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='物联网' >物联网<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='芯片' >芯片<br/><span>end</span></li>
+            <li index = "7" name='信息安全' >信息安全<br/><span>COIE INDOUSTRY</span></li>
+        </ul>
+		<div class="boxexit end01">
+				<svg t="1584504356434" class="icon" viewBox="0 0 1024 1024" version="1.1" p-id="2680" width="200" height="200"><path d="M588.359375 521.703125l300.375-300.375c20.671875-20.671875 20.671875-54.421875 0-74.671875l-1.6875-1.6875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375s-27.421875 5.484375-37.546875 15.609375L512 445.765625 211.625 144.96875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375-14.34375 0-27.421875 5.484375-37.546875 15.609375l-1.6875 1.6875c-10.125 10.125-16.03125 23.203125-16.03125 37.546875s5.484375 27.421875 15.609375 37.546875l300.375 300.375-300.375 300.375c-20.671875 20.671875-20.671875 54.421875 0 74.671875l1.6875 1.6875c10.125 10.125 23.203125 15.609375 37.546875 15.609375 14.34375 0 27.421875-5.484375 37.546875-15.609375l300.375-300.375 300.375 300.375c10.125 10.125 23.203125 15.609375 37.546875 15.609375s27.421875-5.484375 37.546875-15.609375l1.6875-1.6875c10.125-10.125 15.609375-23.203125 15.609375-37.546875 0-14.34375-5.484375-27.421875-15.609375-37.546875l-300.375-300.375z" p-id="2681" fill="#ffffff"></path></svg>		
+		</div>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(八大缩略图/人工智能/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(八大缩略图/人工智能/13.png);background-size: auto 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="showbigimgbox box02" style="left: 2877px;">
+        <ul index = "1">
+            <li index = "0" name='超算/产业链' >超算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='超算/定义' >超算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='超算/形式' >超算形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='大数据/产业链' >大数据产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='大数据/定义' >大数据定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='大数据/形式' >大数据形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='云计算/产业链' >云计算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" name='云计算/定义' >云计算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "8" name='云计算/形式' >云计算形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='超算/产业链' >超算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='超算/定义' >超算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='超算/形式' >超算形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='大数据/产业链' class="backf00" >大数据产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='大数据/定义' >大数据定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='大数据/形式' >大数据形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='云计算/产业链' >云计算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" name='云计算/定义' >云计算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "8" name='云计算/形式' >云计算形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='超算/产业链' >超算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='超算/定义' >超算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='超算/形式' >超算形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='大数据/产业链' >大数据产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4" name='大数据/定义' >大数据定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" name='大数据/形式' >大数据形式<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" name='云计算/产业链' >云计算产业链<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" name='云计算/定义' >云计算定义<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "8" name='云计算/形式' >云计算形式<br/><span>COIE INDOUSTRY</span></li>
+        </ul>
+		<div class="boxexit end02">
+				<svg t="1584504356434" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2680" width="200" height="200"><path d="M588.359375 521.703125l300.375-300.375c20.671875-20.671875 20.671875-54.421875 0-74.671875l-1.6875-1.6875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375s-27.421875 5.484375-37.546875 15.609375L512 445.765625 211.625 144.96875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375-14.34375 0-27.421875 5.484375-37.546875 15.609375l-1.6875 1.6875c-10.125 10.125-16.03125 23.203125-16.03125 37.546875s5.484375 27.421875 15.609375 37.546875l300.375 300.375-300.375 300.375c-20.671875 20.671875-20.671875 54.421875 0 74.671875l1.6875 1.6875c10.125 10.125 23.203125 15.609375 37.546875 15.609375 14.34375 0 27.421875-5.484375 37.546875-15.609375l300.375-300.375 300.375 300.375c10.125 10.125 23.203125 15.609375 37.546875 15.609375s27.421875-5.484375 37.546875-15.609375l1.6875-1.6875c10.125-10.125 15.609375-23.203125 15.609375-37.546875 0-14.34375-5.484375-27.421875-15.609375-37.546875l-300.375-300.375z" p-id="2681" fill="#ffffff"></path></svg>		
+		</div>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(三大缩略图/大数据/产业链/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(三大缩略图/大数据/产业链/13.png);background-size: auto 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="showbigimgbox box03" style="left: 5437px;">
+        <ul index = "2">
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务' >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务' >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务'  class="backf00" >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务' >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务' >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "0" name='创意产业' >创意产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "1" name='制造业' >制造业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" name='智慧与城市' >智慧与城市<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3" name='智能与智慧服务' >智能与智慧服务<br/><span>COIE INDOUSTRY</span></li>
+
+        </ul>
+		<div class="boxexit end03">
+				<svg t="1584504356434" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2680" width="200" height="200"><path d="M588.359375 521.703125l300.375-300.375c20.671875-20.671875 20.671875-54.421875 0-74.671875l-1.6875-1.6875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375s-27.421875 5.484375-37.546875 15.609375L512 445.765625 211.625 144.96875c-10.125-10.125-23.203125-15.609375-37.546875-15.609375-14.34375 0-27.421875 5.484375-37.546875 15.609375l-1.6875 1.6875c-10.125 10.125-16.03125 23.203125-16.03125 37.546875s5.484375 27.421875 15.609375 37.546875l300.375 300.375-300.375 300.375c-20.671875 20.671875-20.671875 54.421875 0 74.671875l1.6875 1.6875c10.125 10.125 23.203125 15.609375 37.546875 15.609375 14.34375 0 27.421875-5.484375 37.546875-15.609375l300.375-300.375 300.375 300.375c10.125 10.125 23.203125 15.609375 37.546875 15.609375s27.421875-5.484375 37.546875-15.609375l1.6875-1.6875c10.125-10.125 15.609375-23.203125 15.609375-37.546875 0-14.34375-5.484375-27.421875-15.609375-37.546875l-300.375-300.375z" p-id="2681" fill="#ffffff"></path></svg>		
+		</div>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(四大缩略图/智能与智慧服务/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/13.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/11.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/12.png);background-size: auto 100%;"></div>
+                <div style="background-image: url(四大缩略图/智能与智慧服务/13.png);background-size: auto 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="box"></div>
+	
+	<div id="videobox">
+	  <video id="video1" autoplay loop muted  style="height: 100%">
+		<source src="video.mp4" type="video/mp4">
+		<source src="video.ogg" type="video/ogg">
+		您的浏览器不支持 HTML5 video 标签。
+	  </video>
+	</div>
+    
+</body>
+<script>
+
+    document.querySelector(".btn01").onclick = function(){
+        document.querySelector(".box01").style.width = "2556px";
+		document.querySelector(".box01").style.left = "2px";
+		document.querySelector(".box01").style.opacity = "1";
+    }
+    document.querySelector(".end01").onclick = function(){
+        document.querySelector(".box01").style.width = "0px";
+		document.querySelector(".box01").style.opacity = "0";
+		document.querySelector(".box01").style.left = "315px";
+    }
+    document.querySelector(".btn02").onclick = function(){
+        document.querySelector(".box02").style.width = "2556px";
+		document.querySelector(".box02").style.opacity = "1";
+		document.querySelector(".box02").style.left = "2562px";
+		
+    }
+    document.querySelector(".end02").onclick = function(){
+        document.querySelector(".box02").style.width = "0px";
+		document.querySelector(".box02").style.opacity = "0";
+		document.querySelector(".box02").style.left = "2877px";
+    }
+    document.querySelector(".btn03").onclick = function(){
+        document.querySelector(".box03").style.width = "2556px";
+		document.querySelector(".box03").style.opacity = "1";
+		document.querySelector(".box03").style.left = "5122px";
+    }
+    document.querySelector(".end03").onclick = function(){
+        document.querySelector(".box03").style.width = "0px";
+		document.querySelector(".box03").style.opacity = "0";
+		document.querySelector(".box03").style.left = "5437px";
+    }
+    let imgcol = 11   //行
+    let imgrow = 30 //例
+    let imgnb = imgcol * imgrow - 1;  //总照片数
+    var jsondata = [];
+    var jsondatalist = [];
+   
+    var anendint = 0;
+    ;
+    function anend(){
+        console.log(anendint)
+        if(anendint == 10 ){
+            objbox = document.querySelectorAll(".boxshow")
+            for(let i = 0 ; i<objbox.length ; i++)
+            {
+                objbox[i].click();
+            }
+        }
+        anendint++
+        setTimeout(anend,1000)
+    }
+     
+    document.querySelector("body").addEventListener('touchstart', function (e){ anendint = 0 });
+    document.querySelector("body").click = function () {anendint = 0 }
+
+    loadXMLDoc()
+    function loadXMLDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                for(let index in JSON.parse(this.response)){
+                    for(let indexs in JSON.parse(this.response)[index]){
+                        jsondatalist.push(JSON.parse(this.response)[index][indexs]);
+                        //console.log(jsondatalist)
+                    }
+                    jsondata.push(jsondatalist)
+                    jsondatalist = []
+                }
+                console.log(jsondata)
+                setTimeout(copyImg,10)
+                anend()
+            }
+        };
+        xhttp.open("GET", "/openapi/mp/mpb", true);
+        xhttp.send();
+    }    
+
+    
+    function copyImg() {
+       
+        var itemHtml = "";
+        var imgy = 0;
+        var imgx = 0;
+        var imgid = 0
+        var imgnb;
+        for(let i = 0 ; i<jsondata.length; i++){
+            for(let is =0; is<jsondata[i].length; is++){
+                jsondatalist.push(jsondata[i][is]);
+            }
+        }
+        for (var i = 0; i < imgrow; i++) {
+            imgx = 2 + i * 214 - Math.floor(i / 6) * 4;
+            for (var is = -1; is < imgcol; is++) {
+                imgnb = Math.floor(Math.random() * jsondatalist.length)//随机图片编号
+                imgy = 2 + is * 145 - Math.floor(is / 5) * 4;
+                let imgurl =  jsondatalist[imgnb][2]
+                //console.log(imgurl)
+                itemHtml += '<div class="boxlist" col="'+i+'" name="'+jsondatalist[imgnb][0]+'" imgname="'+ jsondatalist[imgnb][2] +'" listnb="'+imgnb+'" index="' + imgid + '" style="left:' + imgx + 'px ; top:' + imgy + 'px; "  ><p class="img" style="background:url(' + imgurl + ') center center ;background-size: 100%  auto;"></p></div>'
+                imgid++;
+            }
+        }
+
+            //待机滚动图片
+        setTimeout(function () {  imgroll(); }, 500);
+        var imgroll = function()  {
+            var imgrolllist = document.querySelectorAll(".boxlist");
+            var imgrollid = Math.floor(Math.random() * imgrow);
+            var imgrollbr = Math.floor(Math.random() * 2);
+            var imgrootint = 0
+            for (var i = 0; i < imgrolllist.length; i++) {
+                if(imgrolllist[i].getAttribute("col") == imgrollid){
+                    imgrolllist[i].classList.add("pointer");
+                    if(imgrollbr == 1){
+                        imgrolllist[i].style.top = imgrolllist[i].offsetTop  - 145 + "px";
+                        if(imgrolllist[i].offsetTop-145 == 578){
+                            imgrolllist[i].style.top = 582 +"px"
+                        }
+                        if(imgrolllist[i].offsetTop-145 > 1261){
+                            imgrolllist[i].style.top = 1303 +"px"
+                        }
+                    }else{
+                        imgrolllist[i].style.top = imgrolllist[i].offsetTop + 145+ "px";
+                        if(imgrolllist[i].offsetTop+145 == 727){
+                            imgrolllist[i].style.top = 723 +"px"
+                        }
+                        if(imgrolllist[i].offsetTop+145 < 10){
+                            imgrolllist[i].style.top = 2 +"px"
+                        }
+                        //console.log(imgrolllist[i].offsetTop);
+                    }
+                    imgrootint++
+                    imgroolgo(imgrolllist[i])
+                }
+            }
+            setTimeout(function () {  imgroll(); }, 700);
+        }
+
+        function imgroolgo(objthis){
+            setTimeout(function () { 
+                objthis.classList.add("transition0");
+                if(objthis.offsetTop > 1480){
+                    objthis.style.top = -145 + "px"
+                }else if (objthis.offsetTop < -180){
+                    objthis.style.top = 1446 + "px"
+                }
+                //console.log(objthis.offsetTop);
+            }, 500);
+            setTimeout(function () { 
+                objthis.classList.remove("pointer");
+                objthis.classList.remove("transition0");
+            }, 550);
+        }
+
+        document.querySelector("#box").innerHTML = itemHtml;
+        console.log("play");
+        //setTimeout(function () { gotoplay() }, 500);
+
+        for (var i = 0; i < document.querySelector("#box").querySelectorAll("div").length; i++) {
+            document.querySelector("#box").querySelectorAll("div")[i].onclick = function (e) {
+
+                let divbox; //弹框
+                let subdivhtml; //展示图片内容
+                let subdivhtmlcon; //展示图片内容
+                let imghidetop; //展示图片top
+                let imghideleft; //展示图片left
+                imghidetop = this.offsetTop;
+                imghideleft = this.offsetLeft;
+
+                //添加遮罩
+                divbox = document.createElement('div');
+                divbox.id = "div" + this.getAttribute("index");
+                divbox.setAttribute("index", this.getAttribute("index"));
+                divbox.className = "boxshow ";
+                document.body.appendChild(divbox);
+
+                //添加图片展示
+                subdivbox = document.createElement('div');
+                subdivbox.id = "subdiv" + this.getAttribute("index");
+                document.body.appendChild(subdivbox);
+                subdivhtml = "<div class='boxlist'>"; 
+                let imgnby = 0;
+                for (let i = 0; i < jsondatalist.length; i++) {
+                    if(this.getAttribute("name") == jsondatalist[i][0]){
+                        subdivhtmlcon += "<div style='background: url("+ jsondatalist[i][2] + ") center center no-repeat '></div>";
+                        
+                        if(imgnby == 0){
+                            subdivhtmlcon += "<div style='background: url(" + this.getAttribute("imgname") + ") center center no-repeat '></div>";
+                        }
+                        imgnby++
+                    }
+                }
+                subdivhtml += subdivhtmlcon + subdivhtmlcon + subdivhtmlcon
+                subdivhtml += "</div><div id='zhezhaotop'></div><div id='zhezhaobuttom'></div>"
+                subdivbox.innerHTML = subdivhtml;
+                subdivbox.querySelector(".boxlist").style.top = "-145px";
+                subdivbox.querySelector(".boxlist").addEventListener('touchstart', function (e){ imglist(this,e) });
+                subdivbox.style.top = imghidetop + "px";
+                subdivbox.style.left = imghideleft + "px";
+                subdivbox.className = "boxulimg boxulimgshow";
+                //处理展示图片坐标
+                if (this.offsetLeft % 1280 < 210 || this.offsetLeft % 1280 > 960) {
+                    if (this.offsetLeft % 1280 < 210) {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 218 - 430 + "px";
+
+                    } else {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 965 - 535 + "px";
+                    }
+
+                } else {
+                    divbox.style.left = (this.offsetLeft - 430) + "px";
+                }
+
+                showimg(divbox.offsetLeft + 214 + "px" ,this.getAttribute("index"))
+
+                subdivbox.style.opacity = 1;
+                divbox.style.opacity = 1;
+
+                //展示图片展开后点击遮罩收起图片和遮罩
+                divbox.onclick = function (e) {
+                    //document.querySelector("#box").querySelectorAll("div")[0].click();
+                    //console.log(e.clientY-170,e.clientX-95)
+/*
+                    for(var i =0 ; i <document.querySelector("#box").querySelectorAll("div").length ;i++){
+                        
+                        var boxbojimg;
+                        boxbojimg = document.querySelector("#box").querySelectorAll("div")[i];
+                        
+                        if(boxbojimg.offsetTop > e.clientY - 181 && boxbojimg.offsetTop < e.clientY && boxbojimg.offsetLeft > e.clientX - 107 && boxbojimg.offsetLeft < e.clientX  ){
+                            boxbojimg.click();
+                        }
+                    }*/
+
+                    if(document.getElementById("subdiv"+this.getAttribute("index")).offsetHeight == 1440){
+                        hidefunc(this.getAttribute("index"));
+                    }
+                    
+                }
+            }
+        }
+        
+         //出现展示图片
+        function showimg(leftpx,boxid){
+            document.getElementById("subdiv"+boxid).classList.add("transition1");
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).classList.remove("boxulimgshow");
+                document.getElementById("subdiv"+boxid).style.top = "0px";
+                document.getElementById("subdiv"+boxid).style.left = leftpx;
+                
+            }, 1000); 
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).classList.remove("transition1");
+                let nbs = document.getElementById("subdiv"+boxid).querySelector(".boxlist").offsetHeight/3 + 145
+                playimgy("-" + nbs + "px",boxid)
+            }, 2000); 
+
+            function playimgy(nbcon,boxid){
+                console.log(nbcon,boxid)
+                document.getElementById("subdiv"+boxid).querySelector(".boxlist").style.top = nbcon;
+            }
+        }
+
+        //收起展示图片和遮罩
+        function hidefunc(boxid){
+            //console.log(boxid);
+            
+            document.getElementById("div"+boxid).classList.add("boxhide");
+            document.getElementById("div"+boxid).style.opacity = 0;
+            document.getElementById("subdiv"+boxid).classList.add("boximgHide");
+            document.getElementById("subdiv"+boxid).style.top = document.querySelector("#box").querySelectorAll("div")[boxid].offsetTop + "px";
+            document.getElementById("subdiv"+boxid).style.left = document.querySelector("#box").querySelectorAll("div")[boxid].offsetLeft + "px";
+            document.getElementById("subdiv"+boxid).querySelector(".boxlist").style.top = "-145px";
+            setTimeout(function () {
+                document.getElementById("div"+boxid).remove();
+                document.getElementById("subdiv"+boxid).style.opacity = 0;
+            }, 1000);  
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).remove();
+            }, 1500);  
+         }
+
+        function imglist(listcon,liste){
+            //event的兼容性
+            
+            var ev = liste.targetTouches[0];
+            //获取鼠标按下的坐标
+            var y1 = ev.clientY;
+            //获取元素的left，top值
+            var t = listcon.offsetTop;  
+            console.log(t,y1)
+            
+            listcon.addEventListener('touchmove', function (e) {
+                
+                //event的兼容性
+                var ev = e.targetTouches[0];
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientY;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.top = yt + 'px';
+                //console.log(yt,listcon.offsetTop);
+            });   
+            
+            listcon.addEventListener('touchend', function (e) {
+                listcon.classList.add("transition");
+                if(t > listcon.offsetTop + 30){
+                    listcon.style.top = ((t/435) - 1)*435 +"px";
+                }else if(t < listcon.offsetTop - 30){
+                    listcon.style.top = ((t/435) + 1)*435 +"px";
+                }else{
+                    listcon.style.top = t + "px";
+                }
+                
+                listcon.onmousemove = null;
+                setTimeout(function () {
+                    listcon.classList.remove("transition"); 
+                    if(listcon.offsetTop > -200 ){
+                        console.log(listcon.offsetTop, listcon.offsetHeight)
+                        listcon.style.top =  -listcon.offsetHeight/3 - 145 +"px";
+                    }else if(listcon.offsetTop < -listcon.offsetHeight/3+200 ){
+                        listcon.style.top = listcon.offsetTop + listcon.offsetHeight/3 +"px";
+                    }
+                }, 200);
+            });
+        }
+
+        //大图展示一开始执行
+        var bigimgul = document.querySelectorAll(".showbigimgbox ul");
+        var bigimgli;
+        var bigimglihtml = "";
+        var bigimglist;
+        for (let i = 0; i < bigimgul.length; i++) {
+            bigimgul[i].addEventListener('touchstart', function (e) { bigimglist(this,e,i)});
+            bigimgul[i].style.top = -bigimgul[i].offsetHeight/3 + "px"
+            bigimgli = bigimgul[i].querySelectorAll("li");
+            for (var is = 0; is < bigimgli.length; is++) {
+                bigimgli[is].onmousedown = function (e) {
+                }
+            }
+        }
+
+        setTimeout(function () { playbigimg() }, 500);
+        function playbigimg(){
+            for(let i = 0; i < document.querySelectorAll(".showbiglist").length ;i++ ){
+                //console.log(document.querySelectorAll(".showbiglist")[i]);
+				let obj = document.querySelectorAll(".showbiglist")[i]
+				obj.style.width = obj.querySelectorAll("div").length*2128 + "px";  
+                obj.style.left = -document.querySelectorAll(".showbiglist")[i].offsetWidth/3 + "px";
+                obj.addEventListener('touchstart', function (e) {  bigimglistobj(this,e)});
+            }
+        }
+
+
+		
+        function bigimglistobj(listconb, listeb) {
+			let listcon = listconb;
+			let liste = listeb;
+            //event的兼容性
+            var ev = liste.targetTouches[0];
+            //获取鼠标按下的坐标
+            var y1 = ev.clientX;
+            //获取元素的left，top值
+            var t = listcon.offsetLeft;
+
+            listcon.addEventListener('touchmove', function (e) {
+                //event的兼容性
+                var ev = e.targetTouches[0];
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientX;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离kl;
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.left = yt + 'px';
+                //console.log(yt);
+            });
+            listcon.addEventListener('touchend', function (e) {
+                listcon.classList.add("transition");
+                if (t > listcon.offsetLeft + 30) {
+                    listcon.style.left = ((t / 2128) - 1) * 2128 + "px";
+                } else if (t < listcon.offsetLeft - 30) {
+                    listcon.style.left = ((t / 2128) + 1) * 2128 +  "px";
+                } else {
+                    listcon.style.left = t + "px";
+                }
+                setTimeout(function () {
+                    listcon.classList.remove("transition");
+                    if (listcon.offsetLeft > -200) {
+                        listcon.style.left = -listcon.offsetWidth / 3  + "px";
+                    } else if (listcon.offsetLeft < -listcon.offsetWidth + 3800) {
+                        listcon.style.left = listcon.offsetLeft + listcon.offsetWidth / 3 + "px";
+                    }
+                    
+                }, 200);
+                //console.log(this);
+                listcon.onmousemove = null;
+            });
+        
+        }    
+		
+		
+        function bigimglist(listcons, listes ,listis) {
+			let listi = listis;
+			let listcon = listcons;
+			let liste = listes;
+            //event的兼容性
+            var ev = liste.targetTouches[0];
+            //获取鼠标按下的坐标
+            var y1 = ev.clientY;
+            //获取元素的left，top值
+            var t = listcon.offsetTop;
+            listcon.addEventListener('touchmove', function (e) {
+                //event的兼容性
+                var ev = e.targetTouches[0];
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientY;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离kl;
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.top = yt + 'px';
+                //console.log(yt);
+            });
+            listcon.addEventListener('touchend', function (e) {
+                listcon.classList.add("transition");
+                if (t > listcon.offsetTop + 30) {
+                    listcon.style.top = ((t / 181) - 1) * 181 + "px";
+                } else if (t < listcon.offsetTop - 30) {
+                    listcon.style.top = ((t / 181) + 1) * 181 + "px";
+                } else {
+                    listcon.style.top = t + "px";
+                }
+                setTimeout(function () {  //拖动菜单后
+                    listcon.classList.remove("transition");
+                    if (listcon.offsetTop > -100) {
+                        listcon.style.top = -listcon.offsetHeight / 3 + 2 + "px";
+                    } else if (listcon.offsetTop < -listcon.offsetHeight + 1800) {
+                        listcon.style.top = listcon.offsetTop + listcon.offsetHeight / 3 + "px";
+                    }
+					for(let i = 0; i<listcon.querySelectorAll("li").length ; i++  ){
+						listcon.querySelectorAll("li")[i].classList.remove('backf00');
+					}
+					listcon.querySelectorAll("li")[Math.abs(Math.round(listcon.offsetTop/181)) + 3].classList.add('backf00');
+					//大图控制~~~~~~~~~~~~~~~~~~~~~
+					
+					let showbigobj = listcon.querySelectorAll("li")[Math.abs(Math.round(listcon.offsetTop/181)) + 3]
+					
+                    let bigimglihtml = "";
+                    for (var iss = 0; iss < 3; iss++) {
+                        for (var isss = 0; isss < jsondata[listi].length; isss++) {
+                            if(jsondata[listi][isss][0].indexOf(showbigobj.getAttribute("name")) > 0){
+                                // console.log(jsondata[listi][isss][0] + jsondata[listi][isss][1],showbigobj.getAttribute("name"))
+                                bigimglihtml += '<div style="background-image: url(' + jsondata[listi][isss][1]  + ');background-size: auto 100%;"></div>'
+                            }
+                        }
+                    }
+                    liste.path[1].querySelector(".showbiglist").innerHTML = bigimglihtml;
+					liste.path[1].querySelector(".showbiglist").style.width = liste.path[1].querySelectorAll(".showbiglist div").length*2128 + "px";                 
+					liste.path[1].querySelector(".showbiglist").style.left = -liste.path[1].querySelector(".showbiglist").offsetWidth/3 + "px";
+					liste.path[1].querySelector(".showbiglist").onmousedown = function (e) {bigimglistobj(this,e)}
+					
+					
+                }, 200);
+
+                //console.log(this);
+                listcon.onmousemove = null;
+            });
+        
+        }    
+    
+    }    
+    
+    // jsondata = [
+    //     [
+    //         ['八大缩略图/北斗/','11.png','31.png'],
+    //         ['八大缩略图/北斗/','12.png','32.png'],
+    //         ['八大缩略图/北斗/','13.png','33.png'],
+    //         ['八大缩略图/传感器/','11.png','31.png'],
+    //         ['八大缩略图/传感器/','12.png','32.png'],
+    //         ['八大缩略图/传感器/','13.png','33.png'],
+    //         ['八大缩略图/互联网/','11.png','31.png'],
+    //         ['八大缩略图/互联网/','12.png','32.png'],
+    //         ['八大缩略图/互联网/','13.png','33.png'],
+    //         ['八大缩略图/人工智能/','11.png','31.png'],
+    //         ['八大缩略图/人工智能/','12.png','32.png'],
+    //         ['八大缩略图/人工智能/','13.png','33.png'],
+    //         ['八大缩略图/软件/','11.png','31.png'],
+    //         ['八大缩略图/软件/','12.png','32.png'],
+    //         ['八大缩略图/软件/','12.png','33.png'],
+    //         ['八大缩略图/物联网/','11.png','31.png'],
+    //         ['八大缩略图/物联网/','12.png','32.png'],
+    //         ['八大缩略图/物联网/','13.png','33.png'],
+    //         ['八大缩略图/芯片/','11.png','31.png'],
+    //         ['八大缩略图/芯片/','12.png','32.png'],
+    //         ['八大缩略图/芯片/','12.png','33.png'],
+    //         ['八大缩略图/信息安全/','11.png','31.png'],
+    //         ['八大缩略图/信息安全/','12.png','32.png'],
+    //         ['八大缩略图/信息安全/','13.png','33.png']
+    //     ],
+    //     [
+    //         ['三大缩略图/超算/产业链/','11.png','31.png'],
+    //         ['三大缩略图/超算/产业链/','12.png','32.png'],
+    //         ['三大缩略图/超算/产业链/','13.png','33.png'],
+    //         ['三大缩略图/超算/定义/','11.png','31.png'],
+    //         ['三大缩略图/超算/定义/','12.png','32.png'],
+    //         ['三大缩略图/超算/定义/','13.png','33.png'],
+    //         ['三大缩略图/超算/形式/高新区/','11.png','31.png'],
+    //         ['三大缩略图/超算/形式/高新区/','12.png','32.png'],
+    //         ['三大缩略图/超算/形式/高新区/','13.png','33.png'],
+    //         ['三大缩略图/超算/形式/国际/','11.png','31.png'],
+    //         ['三大缩略图/超算/形式/国际/','12.png','32.png'],
+    //         ['三大缩略图/超算/形式/国际/','13.png','33.png'],
+    //         ['三大缩略图/超算/形式/国内/','11.png','31.png'],
+    //         ['三大缩略图/超算/形式/国内/','12.png','32.png'],
+    //         ['三大缩略图/超算/形式/国内/','13.png','33.png'],
+    //         ['三大缩略图/超算/形式/河南省/','11.png','31.png'],
+    //         ['三大缩略图/超算/形式/河南省/','12.png','32.png'],
+    //         ['三大缩略图/超算/形式/河南省/','13.png','33.png'],
+    //         ['三大缩略图/大数据/产业链/','11.png','31.png'],
+    //         ['三大缩略图/大数据/产业链/','12.png','32.png'],
+    //         ['三大缩略图/大数据/产业链/','13.png','33.png'],
+    //         ['三大缩略图/大数据/定义/','11.png','31.png'],
+    //         ['三大缩略图/大数据/定义/','12.png','32.png'],
+    //         ['三大缩略图/大数据/定义/','13.png','33.png'],
+    //         ['三大缩略图/大数据/形式/高新区/','11.png','31.png'],
+    //         ['三大缩略图/大数据/形式/高新区/','12.png','32.png'],
+    //         ['三大缩略图/大数据/形式/高新区/','13.png','33.png'],
+    //         ['三大缩略图/大数据/形式/国际/','11.png','31.png'],
+    //         ['三大缩略图/大数据/形式/国际/','12.png','32.png'],
+    //         ['三大缩略图/大数据/形式/国际/','13.png','33.png'],
+    //         ['三大缩略图/大数据/形式/国内/','11.png','31.png'],
+    //         ['三大缩略图/大数据/形式/国内/','12.png','32.png'],
+    //         ['三大缩略图/大数据/形式/国内/','13.png','33.png'],
+    //         ['三大缩略图/大数据/形式/河南省/','11.png','31.png'],
+    //         ['三大缩略图/大数据/形式/河南省/','12.png','32.png'],
+    //         ['三大缩略图/大数据/形式/河南省/','13.png','33.png'],
+    //         ['三大缩略图/云计算/产业链/','11.png','31.png'],
+    //         ['三大缩略图/云计算/产业链/','12.png','32.png'],
+    //         ['三大缩略图/云计算/产业链/','13.png','33.png'],
+    //         ['三大缩略图/云计算/定义/','11.png','31.png'],
+    //         ['三大缩略图/云计算/定义/','12.png','32.png'],
+    //         ['三大缩略图/云计算/定义/','13.png','33.png'],
+    //         ['三大缩略图/云计算/形式/高新区/','11.png','31.png'],
+    //         ['三大缩略图/云计算/形式/高新区/','12.png','32.png'],
+    //         ['三大缩略图/云计算/形式/高新区/','13.png','33.png'],
+    //         ['三大缩略图/云计算/形式/国际/','11.png','31.png'],
+    //         ['三大缩略图/云计算/形式/国际/','12.png','32.png'],
+    //         ['三大缩略图/云计算/形式/国际/','13.png','33.png'],
+    //         ['三大缩略图/云计算/形式/国内/','11.png','31.png'],
+    //         ['三大缩略图/云计算/形式/国内/','12.png','32.png'],
+    //         ['三大缩略图/云计算/形式/国内/','13.png','33.png'],
+    //         ['三大缩略图/云计算/形式/河南省/','11.png','31.png'],
+    //         ['三大缩略图/云计算/形式/河南省/','12.png','32.png'],
+    //         ['三大缩略图/云计算/形式/河南省/','13.png','33.png'],
+    //     ],
+    //     [
+    //         ['四大缩略图/创意产业/','11.png','31.png'],
+    //         ['四大缩略图/创意产业/','12.png','32.png'],
+    //         ['四大缩略图/创意产业/','13.png','33.png'],
+    //         ['四大缩略图/制造业/','11.png','31.png'],
+    //         ['四大缩略图/制造业/','12.png','32.png'],
+    //         ['四大缩略图/制造业/','13.png','33.png'],
+    //         ['四大缩略图/智慧与城市/','11.png','31.png'],
+    //         ['四大缩略图/智慧与城市/','12.png','32.png'],
+    //         ['四大缩略图/智慧与城市/','13.png','33.png'],
+    //         ['四大缩略图/智能与智慧服务/','11.png','31.png'],
+    //         ['四大缩略图/智能与智慧服务/','12.png','32.png'],
+    //         ['四大缩略图/智能与智慧服务/','13.png','33.png'],
+    //     ]
+    // ]
+
+
+</script>
+
+</html>

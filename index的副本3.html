@@ -1,0 +1,487 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>魔屏A</title>
+    <meta name="description" content="魔屏">
+
+    <head>
+
+    </head>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0px;
+        font-size: 0px;
+        background-color: black;
+    }
+
+    #box {
+        height: 100%;
+        width: 100%;
+        ;
+    }
+
+    #box>div {
+        height: 173px;
+        width: 99px;
+        box-sizing: border-box;
+        display: inline-block;
+        position: absolute;
+        z-index: 1;
+        transition: 0.5s;
+    }
+
+    #box>div>p {
+        height: 100%;
+        width: 100%;
+    }
+
+    .transition0 {
+        transition: 0s;
+    }
+    .transition1,.transition1>div,.transition1>div>div {
+        transition: 1s;
+        pointer-events: none;
+    }
+    .transition{
+        transition: 0.2s;
+    }
+    .transition{
+        transition: 0.2s;
+    }
+    .boxshow {
+        height: 1440px;
+        width: 1598px;
+        position: absolute;
+        top: 0px;
+        z-index: 9;
+        background-color: rgba(0, 212, 255, 0.7);
+        transition: 1s;
+        opacity: 0;
+    }
+    .boxhide{
+        opacity: 0;
+        transition: 1s;
+        pointer-events: none;
+    }
+
+    .boxulimg {
+        background-color: #000;
+        position: absolute;
+        width: 527px;
+        height: 1440px;
+        top: 0px;
+        z-index: 99;
+        overflow: hidden;
+        box-shadow: 0px 0px 20px #000;
+    }
+    .boxulimg>.boxlist>div{background-size: auto 100% !important;}    
+    .pointer{pointer-events: none;}
+    .boxulimgshow{width: 99px; height: 173px;opacity: 0;pointer-events: none;}
+    .boxulimgshow>.boxlist{width: 99px; height: 173px;}
+    .boxulimgshow>.boxlist>div{width: 99px; height: 173px;top: 0px !important;transition: 1s;}
+
+    .boximgHide{
+        transition: 1s;
+        width: 99px;
+        height: 173px;
+        opacity: 1;
+        pointer-events: none;
+    }
+    .boximgHide>.boxlist{
+        width: 99px;
+        transition: 1s;
+        height: 173px!important;
+    }
+    .boximgHide>.boxlist>div{
+        width: 99px;
+        height: 173px!important;
+        transition: 1s;
+        top: 0px !important;
+        background-size: auto 100% !important;
+    }
+
+    .boxulimg>div {
+        width: 527px;
+        position: absolute;
+        left: 0px;
+    }
+
+    .boxulimg>div>div {
+        margin: 0px 0px 8px 0px;
+        width: 527px;
+        height: 354px;
+    }
+    #zhezhaotop{    position: absolute;top: 0px;left: 0px;width: 100%;height: 354px;background-color: rgba(0, 212, 255, 0.3); pointer-events: none;}
+    #zhezhaobuttom{position: absolute; bottom:  0px;left: 0px;width: 100%;height: 716px;background-color: rgba(0, 212, 255, 0.3);pointer-events: none;}
+    .btn01,.btn02,.btn03{ position: absolute; left: 2px; top: 545px; background:rgba(255, 0, 0, 0.8);text-align: center; width: 313px; height: 173px; z-index: 9;color: #fff;font-size: 36px; box-sizing: border-box; padding-top: 40px;}
+    .btnbox span{font-size: 12px;}
+    .showbigimgbox{ height: 1436px; width: 2556px; position: absolute; top:2px;transition: 0.3s; left: 2px; z-index: 999; background-color: #000; box-shadow: 0px 0px 20px #000;}
+    .showbigimgbox ul{ list-style: none;padding: 0px; width: 313px; height: 100%; overflow: hidden;}
+    .showbigimgbox ul li{ display: block; height: 173px; margin-bottom: 8px; background-color: cornflowerblue;text-align: center;color: #fff;font-size: 36px;box-sizing: border-box; padding-top: 40px;}
+    .showbigimgbox ul li span{font-size: 12px;}
+    .showbigimgbox .showbingcon { position: absolute; width: 2235px; height: 100%; right: 0px; top: 0px; overflow: hidden; }
+    .showbingcon .showbiglist{ width: 100%; height: auto; position: absolute; left: 0px; top: 0px; }
+    .showbigimgbox .showbingcon .showbiglist>div{ width: 100%; height: 1434px; margin-bottom: 2px; }
+    .backf00{ background-color: #f00;}
+</style>
+
+<body>
+    <div class="btn01 btnbox">核心产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="btn02 btnbox" style="left: 2562px;">基础产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="btn03 btnbox" style="left: 5122px;">应用产业<br/><span>COIE INDOUSTRY</span></div>
+    <div class="showbigimgbox box01" style="top:-1500px">
+        <ul>
+            <li index = "1" >核心产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" >芯片<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3"  class="backf00">互联网5G<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4"  style="margin-bottom: 4px;">传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" >信息安全<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" >人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "999"  class="end01">关闭<br/><span>end</span></li>
+        </ul>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/1.jpg);background-size: 100% 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="showbigimgbox box02" style="top:-1500px; left: 2562px;">
+        <ul>
+            <li index = "1" >核心产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" >芯片<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3"  class="backf00">互联网5G<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4"  style="margin-bottom: 4px;">传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" >信息安全<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" >人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "999"  class="end02">关闭<br/><span>end</span></li>
+        </ul>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/2.jpg);background-size: 100% 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="showbigimgbox box03" style="top:-1500px;left: 5122px;">
+        <ul>
+            <li index = "1" >核心产业<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "2" >芯片<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "3"  class="backf00">互联网5G<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "4"  style="margin-bottom: 4px;">传感器<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "5" >软件<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "6" >信息安全<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "7" >人工智能<br/><span>COIE INDOUSTRY</span></li>
+            <li index = "999"  class="end03">关闭<br/><span>end</span></li>
+        </ul>
+        <div class="showbingcon">
+            <div class="showbiglist">
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+                <div style="background-image: url(img/3.jpg);background-size: 100% 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="box"></div>
+    
+</body>
+<script>
+    let imgcol = 8 //行
+    let imgrow = 72 //例
+    let imgnb = imgcol * imgrow - 1;  //总照片数
+
+    document.querySelector(".btn01").onclick = function(){
+        document.querySelector(".box01").style.top = "2px";
+    }
+    document.querySelector(".end01").onclick = function(){
+        document.querySelector(".box01").style.top = "-1500px";
+    }
+    document.querySelector(".btn02").onclick = function(){
+        document.querySelector(".box02").style.top = "2px";
+    }
+    document.querySelector(".end02").onclick = function(){
+        document.querySelector(".box02").style.top = "-1500px";
+    }
+    document.querySelector(".btn03").onclick = function(){
+        document.querySelector(".box03").style.top = "2px";
+    }
+    document.querySelector(".end03").onclick = function(){
+        document.querySelector(".box03").style.top = "-1500px";
+    }
+
+
+    copyImg()
+    function copyImg() {
+        var itemHtml = "";
+        var imgy = 0;
+        var imgx = 0;
+        var imgid = 0
+        var imgnb;
+        for (var i = 0; i < imgrow; i++) {
+            imgx = 2 + i * 107 - Math.floor(i / 12) * 4;
+            for (var is = 0; is < imgcol; is++) {
+                imgnb = Math.floor(Math.random() * (8 + 1))//随机图片编号
+                imgy = 2 + is * 181 - Math.floor(is / 4) * 4;
+                itemHtml += '<div class="" listnb="'+imgnb+'" index="' + imgid + '" style="left:' + imgx + 'px ; top:' + imgy + 'px; "  ><p class="img" style="background:url(img/' + imgnb + '.jpg) center center ;background-size: auto 100% ;"></p></div>'
+                imgid++;
+            }
+        }
+        document.querySelector("#box").innerHTML = itemHtml;
+        console.log("play");
+        //setTimeout(function () { gotoplay() }, 500);
+
+        for (var i = 0; i < document.querySelector("#box").querySelectorAll("div").length; i++) {
+            document.querySelector("#box").querySelectorAll("div")[i].onclick = function (e) {
+
+                let divbox; //弹框
+                var subdivhtml; //展示图片内容
+                let imghidetop; //展示图片top
+                let imghideleft; //展示图片left
+                imghidetop = this.offsetTop;
+                imghideleft = this.offsetLeft;
+
+                //添加遮罩
+                divbox = document.createElement('div');
+                divbox.id = "div" + this.getAttribute("index");
+                divbox.setAttribute("index", this.getAttribute("index"));
+                divbox.className = "boxshow ";
+                document.body.appendChild(divbox);
+
+                //添加图片展示
+                subdivbox = document.createElement('div');
+                subdivbox.id = "subdiv" + this.getAttribute("index");
+                document.body.appendChild(subdivbox);
+                subdivhtml = "<div class='boxlist'>" 
+                for (var is = 0; is < 3; is++) {
+                    for (var i = 0; i < 5; i++) {
+                        subdivhtml += "<div style='background: url(img/" + this.getAttribute("listnb") + ".jpg) center center no-repeat '></div>";
+                    }
+                }
+                subdivhtml += "</div><div id='zhezhaotop'></div><div id='zhezhaobuttom'></div>"
+                subdivbox.innerHTML = subdivhtml;
+                subdivbox.querySelector(".boxlist").onmousedown = function () { imglist(this,e) }
+                subdivbox.style.top = imghidetop + "px";
+                subdivbox.style.left = imghideleft + "px";
+                subdivbox.className = "boxulimg boxulimgshow";
+                //处理展示图片坐标
+                if (this.offsetLeft % 1280 < 210 || this.offsetLeft % 1280 > 960) {
+                    if (this.offsetLeft % 1280 < 210) {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 216 - 750 + "px";
+
+                    } else {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 965 - 750 + "px";
+                    }
+
+                } else {
+                    divbox.style.left = (this.offsetLeft - 750) + "px";
+                }
+
+                showimg(divbox.offsetLeft + 536 + "px" ,this.getAttribute("index"))
+
+                subdivbox.style.opacity = 1;
+                divbox.style.opacity = 1;
+
+                //展示图片展开后点击遮罩收起图片和遮罩
+                divbox.onclick = function () {
+                    if(document.getElementById("subdiv"+this.getAttribute("index")).offsetHeight == 1440){
+                        hidefunc(this.getAttribute("index"));
+                    }
+                    
+                }
+            }
+        }
+         //出现展示图片
+        function showimg(leftpx,boxid){
+            document.getElementById("subdiv"+boxid).classList.add("transition1");
+            setTimeout(function () {
+                
+                document.getElementById("subdiv"+boxid).classList.remove("boxulimgshow");
+                document.getElementById("subdiv"+boxid).style.top = "0px";
+                document.getElementById("subdiv"+boxid).style.left = leftpx;
+                
+            }, 1000); 
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).classList.remove("transition1");
+                subdivbox.querySelector(".boxlist").style.top = -subdivbox.querySelector(".boxlist").offsetHeight/3 + "px";
+                
+            }, 2000); 
+        }
+        //收起展示图片和遮罩
+        function hidefunc(boxid){
+            console.log(boxid);
+            
+            document.getElementById("div"+boxid).classList.add("boxhide");
+            document.getElementById("div"+boxid).style.opacity = 0;
+            document.getElementById("subdiv"+boxid).classList.add("boximgHide");
+            document.getElementById("subdiv"+boxid).style.top = document.querySelector("#box").querySelectorAll("div")[boxid].offsetTop + "px";
+            document.getElementById("subdiv"+boxid).style.left = document.querySelector("#box").querySelectorAll("div")[boxid].offsetLeft + "px";
+            setTimeout(function () {
+                document.getElementById("div"+boxid).remove();
+                document.getElementById("subdiv"+boxid).style.opacity = 0;
+            }, 1000);  
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).remove();
+            }, 1500);  
+         }
+
+        function imglist(listcon,liste){
+            //event的兼容性
+            var ev = ev || event;
+            //获取鼠标按下的坐标
+            var y1 = ev.clientY;
+            //获取元素的left，top值
+            var t = listcon.offsetTop;  
+            listcon.onmousemove = function (ev) {
+                
+                //event的兼容性
+                var ev = ev || event;
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientY;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.top = yt + 'px';
+                //console.log(yt,listcon.offsetTop);
+            }   
+            listcon.onmouseup = function (ev) {
+                listcon.classList.add("transition");
+                if(t > listcon.offsetTop + 30){
+                    listcon.style.top = ((t/362) - 1)*362 +"px";
+                }else if(t < listcon.offsetTop - 30){
+                    listcon.style.top = ((t/362) + 1)*362 +"px";
+                }else{
+                    listcon.style.top = t + "px";
+                }
+                
+                listcon.onmousemove = null;
+                setTimeout(function () {
+                    
+                    listcon.classList.remove("transition"); 
+                    if(listcon.offsetTop > -500 ){
+                        console.log(listcon.offsetTop)
+                        listcon.style.top =  -listcon.offsetHeight/3 + 2 +"px";
+                    }else if(listcon.offsetTop < -listcon.offsetHeight/3+200 ){
+                        listcon.style.top = listcon.offsetTop + listcon.offsetHeight/3 +"px";
+                    }
+                    console.log(listcon.offsetTop ,-listcon.offsetHeight)
+                }, 200);
+            }
+        }
+
+
+        var bigimgul = document.querySelectorAll(".showbigimgbox ul");
+        var bigimgli;
+        var bigimglihtml = "";
+        var bigimglist;
+        for (var i = 0; i < bigimgul.length; i++) {
+            bigimgli = bigimgul[i].querySelectorAll("li");
+            for (var is = 0; is < bigimgli.length; is++) {
+                bigimgli[is].onmousedown = function (e) { 
+                    //console.log(this,e) 
+                    if(this.getAttribute("index") == 999){
+                        return;
+                    }
+                    bigimglihtml = "";
+                    for (var iss = 0; iss < 3; iss++) {
+                        for (var isss = 0; isss < 3; isss++) {
+                            bigimglihtml += '<div style="background-image: url(img/' + this.getAttribute("index") + '.jpg);background-size: 100% 100%;"></div>'
+                        }
+                    }
+                    e.path[2].querySelector(".showbiglist").innerHTML = bigimglihtml;
+                    e.path[2].querySelector(".showbiglist").style.top = -e.path[2].querySelector(".showbiglist").offsetHeight/3 + "px";
+                    e.path[2].querySelector(".showbiglist").onmousedown = function (e) {bigimglist(this,e) }
+                }
+            }
+        }
+
+        setTimeout(function () { playbigimg() }, 500);
+        function playbigimg(){
+            for(var i = 0; i < document.querySelectorAll(".showbiglist").length ;i++ ){
+                console.log(document.querySelectorAll(".showbiglist")[i]);
+                document.querySelectorAll(".showbiglist")[i].onmousedown = function (e) {  bigimglist(this,e) }
+            }
+        }
+
+
+        function bigimglist(listcon, liste) {
+            //event的兼容性
+            var ev = ev || event;
+            //获取鼠标按下的坐标
+            var y1 = ev.clientY;
+            //获取元素的left，top值
+            var t = listcon.offsetTop;
+
+            this.onmousemove = function (ev) {
+
+                //event的兼容性
+                var ev = ev || event;
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientY;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离kl;
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.top = yt + 'px';
+                //console.log(yt);
+            }
+            this.onmouseup = function (ev) {
+                listcon.classList.add("transition");
+                if (t > listcon.offsetTop + 30) {
+                    listcon.style.top = ((t / 1436) - 1) * 1436 + "px";
+                } else if (t < listcon.offsetTop - 30) {
+                    listcon.style.top = ((t / 1436) + 1) * 1436 + "px";
+                } else {
+                    listcon.style.top = t + "px";
+                }
+
+                this.onmousemove = null;
+                setTimeout(function () {
+
+                    listcon.classList.remove("transition");
+                    if (listcon.offsetTop > -200) {
+                        
+                        listcon.style.top = -listcon.offsetHeight / 3 + 2 + "px";
+                    } else if (listcon.offsetTop < -listcon.offsetHeight + 1800) {
+                        listcon.style.top = listcon.offsetTop + listcon.offsetHeight / 3 + "px";
+                    }
+                    
+                }, 200);
+            }
+        
+        }    
+    
+    }    
+    
+
+</script>
+
+</html>

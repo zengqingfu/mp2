@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>魔屏A</title>
+    <meta name="description" content="魔屏">
+
+    <head>
+
+    </head>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        margin: 0px;
+        padding: 0px;
+        font-size: 0px;
+        background-color: black;
+    }
+
+    #box {
+        height: 100%;
+        width: 100%;
+        ;
+    }
+
+    #box>div {
+        height: 173px;
+        width: 99px;
+        box-sizing: border-box;
+        display: inline-block;
+        position: absolute;
+        z-index: 1;
+        transition: 0.5s;
+    }
+
+    #box>div>p {
+        height: 100%;
+        width: 100%;
+    }
+
+    .transition0 {
+        transition: 0s;
+    }
+
+    .transition{
+        transition: 0.2s;
+    }
+    .transition{
+        transition: 0.2s;
+    }
+    .boxshow {
+        height: 1440px;
+        width: 1598px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 9;
+        background-color: rgba(0, 212, 255, 0.7);
+        transition: 1s;
+    }
+    .boxhide{
+        opacity: 0;
+        transition: 1s;
+        pointer-events: none;
+    }
+
+    .boxulimg {
+        background-color: #000;
+        position: absolute;
+        width: 527px;
+        height: 1440px;
+        top: 0px;
+        z-index: 99;
+        overflow: hidden;
+        box-shadow: 0px 0px 20px #000;
+    }
+    .boximgHide{
+        transition: 1s;
+        width: 99px;
+        height: 173px;
+        opacity: 1;
+        pointer-events: none;
+    }
+    .boximgHide>.boxlist{
+        left: -211px !important;
+        transition: 1s;
+        height: 173px!important;
+    }
+    .boximgHide>.boxlist>div{
+        height: 173px!important;
+        transition: 1s;
+        background-size: auto 100% !important;
+    }
+
+    .boxulimg>div {
+        width: 527px;
+        position: absolute;
+        left: 0px;
+    }
+
+    .boxulimg>div>div {
+        margin: 0px 0px 8px 0px;
+        width: 527px;
+        height: 354px;
+    }
+</style>
+
+<body>
+
+    <div id="box"></div>
+</body>
+<script>
+    let imgcol = 8 //行
+    let imgrow = 72 //例
+    let imgnb = imgcol * imgrow - 1;  //总照片数
+
+    copyImg()
+    function copyImg() {
+        var itemHtml = "";
+        var imgy = 0;
+        var imgx = 0;
+        var imgid = 0
+        var imgnb;
+        for (var i = 0; i < imgrow; i++) {
+            imgx = 2 + i * 107 - Math.floor(i / 12) * 4;
+            for (var is = 0; is < imgcol; is++) {
+                imgnb = Math.floor(Math.random() * (8 + 1))//随机图片编号
+                imgy = 2 + is * 181 - Math.floor(is / 4) * 4;
+                itemHtml += '<div class="" listnb="'+imgnb+'" index="' + imgid + '" style="left:' + imgx + 'px ; top:' + imgy + 'px; "  ><p class="img" style="background:url(img/' + imgnb + '.jpg) center center ;background-size: auto 100% ;"></p></div>'
+                imgid++;
+            }
+        }
+        document.querySelector("#box").innerHTML = itemHtml;
+        console.log("play");
+        //setTimeout(function () { gotoplay() }, 500);
+
+        for (var i = 0; i < document.querySelector("#box").querySelectorAll("div").length; i++) {
+            document.querySelector("#box").querySelectorAll("div")[i].onclick = function (e) {
+
+                let divbox; //弹框
+                var subdivhtml; //展示图片内容
+                let imghidetop; //展示图片收回top
+                let imghideleft; //展示图片收回left
+                imghidetop = this.offsetTop;
+                imghideleft = this.offsetLeft;
+
+                //添加遮罩
+                divbox = document.createElement('div');
+                divbox.id = "div" + this.getAttribute("index");
+                divbox.setAttribute("index", this.getAttribute("index"));
+                divbox.className = "boxshow";
+                document.body.appendChild(divbox);
+
+                //添加图片展示
+                subdivbox = document.createElement('div');
+                subdivbox.id = "subdiv" + this.getAttribute("index");
+                subdivbox.className = "boxulimg";
+                document.body.appendChild(subdivbox);
+                subdivhtml = "<div class='boxlist'>" 
+                for (var is = 0; is < 3; is++) {
+                    for (var i = 0; i < 5; i++) {
+                        subdivhtml += "<div style='background: url(img/" + this.getAttribute("listnb") + ".jpg) center center no-repeat '></div>";
+                    }
+                }
+                subdivhtml += "</div>"
+                subdivbox.innerHTML = subdivhtml;
+                subdivbox.querySelector(".boxlist").onmousedown = function () { imglist(this,e) }
+                subdivbox.querySelector(".boxlist").style.top = -subdivbox.querySelector(".boxlist").offsetHeight/3 + "px";
+
+                if (this.offsetLeft % 1280 < 210 || this.offsetLeft % 1280 > 960) {
+                    if (this.offsetLeft % 1280 < 210) {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 216 - 750 + "px";
+
+                    } else {
+                        divbox.style.left = Math.floor(this.offsetLeft / 1280) * 1280 + 965 - 750 + "px";
+                    }
+
+                } else {
+                    divbox.style.left = (this.offsetLeft - 750) + "px";
+                }
+                subdivbox.style.left = divbox.offsetLeft + 536 + "px";
+                //console.log(Math.floor(this.offsetLeft % 1280));
+                divbox.onclick = function () {
+                    hidefunc(this.getAttribute("index"));
+                }
+            }
+        }
+
+        function hidefunc(boxid){
+            console.log(boxid);
+            
+            document.getElementById("div"+boxid).classList.add("boxhide");
+            document.getElementById("subdiv"+boxid).classList.add("boximgHide");
+            document.getElementById("subdiv"+boxid).style.top = document.querySelector("#box").querySelectorAll("div")[boxid].offsetTop + "px";
+            document.getElementById("subdiv"+boxid).style.left = document.querySelector("#box").querySelectorAll("div")[boxid].offsetLeft + "px";
+            setTimeout(function () {
+                document.getElementById("div"+boxid).remove();
+                document.getElementById("subdiv"+boxid).style.opacity = 0;
+            }, 1000);  
+            setTimeout(function () {
+                document.getElementById("subdiv"+boxid).remove();
+            }, 2000);  
+         }
+
+        function imglist(listcon,liste){
+            //event的兼容性
+            var ev = ev || event;
+            //获取鼠标按下的坐标
+            var y1 = ev.clientY;
+            //获取元素的left，top值
+            var t = listcon.offsetTop;  
+            document.onmousemove = function (ev) {
+                
+                //event的兼容性
+                var ev = ev || event;
+                //获取鼠标移动时的坐标
+                var y2 = ev.clientY;
+                //计算出鼠标的移动距离
+                var y = y2 - y1;
+                //移动的数值与元素的left，top相加，得出元素的移动的距离
+                var yt = y + t;
+                //更改元素的left，top值
+                listcon.style.top = yt + 'px';
+                //console.log(yt,listcon.offsetTop);
+            }   
+            document.onmouseup = function (ev) {
+                listcon.classList.add("transition");
+                if(t > listcon.offsetTop + 30){
+                    listcon.style.top = ((t/362) - 1)*362 +"px";
+                }else if(t < listcon.offsetTop - 30){
+                    listcon.style.top = ((t/362) + 1)*362 +"px";
+                }else{
+                    listcon.style.top = t + "px";
+                }
+                
+                document.onmousemove = null;
+                setTimeout(function () {
+                    
+                    listcon.classList.remove("transition"); 
+                    if(listcon.offsetTop > -200 ){
+                        console.log(listcon.offsetTop)
+                        listcon.style.top =  -listcon.offsetHeight/3 + 2 +"px";
+                    }else if(listcon.offsetTop < -subdivbox.offsetHeight-200 ){
+                        listcon.style.top = listcon.offsetTop + listcon.offsetHeight/3 +"px";
+                    }
+
+                }, 200);
+            }
+        }
+
+
+
+    }    
+</script>
+
+</html>
